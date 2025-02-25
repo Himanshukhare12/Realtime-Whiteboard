@@ -1,0 +1,25 @@
+{
+  "name": "whiteboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "express.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start":"node express"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Himanshukhare12/Realtime-Whiteboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Himanshukhare12/Realtime-Whiteboard/issues"
+  },
+  "homepage": "https://github.com/Himanshukhare12/Realtime-Whiteboard#readme"
+}
