@@ -13,7 +13,7 @@ Realtime-Whiteboard is a collaborative online whiteboard application that allows
 
 ## Deployment
 The application is deployed on Render. You can access it using the following link:
-[Realtime-Whiteboard on Render](https://your-render-link.com)
+[Realtime-Whiteboard on Render](https://realtime-whiteboard-uvcg.onrender.com)
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
