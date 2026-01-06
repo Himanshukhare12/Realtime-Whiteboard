@@ -15,7 +15,7 @@
   position: absolute;
   max-height: 200px;
   max-width: 246px;
-  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow);
 }
 .minimize {
   z-index: 50;
@@ -40,7 +40,9 @@
   left: 50%;
   top: 50%;
   border-radius: 0 15px 0 15px;
-  box-shadow: 9px 8px 18px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow);
+  background: var(--panel);
+  border: 1px solid var(--border);
   
 }
 .sticky-pad .nav {
@@ -52,9 +54,10 @@
   left: 0;
  
   border-radius: 0px 15px 0px 0px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.06), transparent);
 }
  .nav:hover {
-  cursor: move;
+  cursor: pointer;
 }
 
 .sticky-pad textarea,.sticky-pad img {
@@ -70,7 +73,7 @@
   font-weight: 300;
   font-size: 1.5rem;
   text-align: center;
-  color: grey;
+  color: var(--text);
 }
 .sticky-pad textarea:focus,
 .sticky-pad textarea:active {

@@ -154,3 +154,34 @@ function redoMaker() {
 }
 
 
+// Theme toggle handling
+document.addEventListener("DOMContentLoaded", function() {
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (!toggleBtn) return;
+
+  const icon = toggleBtn.querySelector(".theme-icon");
+  const applyIcon = () => {
+    const isDark = document.body.classList.contains("theme-dark");
+    if (icon) icon.textContent = isDark ? "🌙" : "☀️";
+  };
+
+  const stored = localStorage.getItem("theme");
+  if (stored === "dark") {
+    document.body.classList.add("theme-dark");
+  } else if (stored === "light") {
+    document.body.classList.remove("theme-dark");
+  } else {
+    document.body.classList.add("theme-dark");
+    localStorage.setItem("theme", "dark");
+  }
+  applyIcon();
+
+  toggleBtn.addEventListener("click", function() {
+    document.body.classList.toggle("theme-dark");
+    const isDark = document.body.classList.contains("theme-dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    applyIcon();
+  });
+});
+
+

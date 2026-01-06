@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Realtime Whiteboard</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/sticky.css">
     <link rel="stylesheet" href="./css/image.css">
@@ -13,10 +13,16 @@
     <link rel="shortcut icon" href="./icons/pep.png" type="image/x-icon">
 </head>
 
-<body>
+<body class="theme-dark">
     <!-- canvas Tag -->
     <div class="combined">
         <div class="toolBar">
+            <div class="brand">
+                <span class="app-title">Realtime Whiteboard</span>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+                    <span class="theme-icon" aria-hidden="true">☀️</span>
+                </button>
+            </div>
             <div class=" hamburger is-active" id="hamburger-1">
                 <span class="line"></span>
                 <span class="line"></span>
@@ -24,45 +30,45 @@
             </div>
             <div class="tool-panel add-animation">
                 <div class="tool active">
-                    <img src="icons/Black_Pencil.svg" class="tool-img " id="pencil-img" alt=""
+                    <img src="icons/Black_Pencil.svg" class="tool-img " id="pencil-img" alt="Pencil" title="Pencil"
                         onclick="handleLocaltoolChange('pencil')">
                     <div class="tool-options pencil">
                         <div class="pencil-size">
-                            <input type="range" id="pen-size" min="5" max="30" value="5"
+                            <input type="range" id="pen-size" min="5" max="30" value="5" aria-label="Pen size"
                                 onchange="sizeChange(this.value)">
                         </div>
                         <div class="pencil-color">
-                            <div class="colors red" onclick="handleColorChange('red')"></div>
-                            <div class="colors green" onclick="handleColorChange('#55efc4')"></div>
-                            <div class="colors blue" onclick="handleColorChange('blue')"></div>
+                            <div class="colors red" title="Red" onclick="handleColorChange('red')"></div>
+                            <div class="colors green" title="Teal" onclick="handleColorChange('#55efc4')"></div>
+                            <div class="colors blue" title="Blue" onclick="handleColorChange('blue')"></div>
                         </div>
                     </div>
                 </div>
                 <div class="tool eraser">
-                    <img src="icons/Eraser.svg" alt="" class="tool-img" id="eraser-img"
+                    <img src="icons/Eraser.svg" alt="Eraser" title="Eraser" class="tool-img" id="eraser-img"
                         onclick="handleLocaltoolChange('eraser')">
                     <div class="tool-options eraser">
                         <div class="eraser-size">
-                            <input type="range" id="eraser-size" min="5" max=30 onchange="sizeChange(this.value)">
+                            <input type="range" id="eraser-size" min="5" max=30 aria-label="Eraser size" onchange="sizeChange(this.value)">
                         </div>
                     </div>
                 </div>
                 <div class="tool">
-                    <img src="icons/StickyNote.svg" alt="" onclick="handleLocaltoolChange('sticky')" class="tool-img">
+                    <img src="icons/StickyNote.svg" alt="Sticky Note" title="Sticky Note" onclick="handleLocaltoolChange('sticky')" class="tool-img">
                 </div>
                 <div class="tool">
                     <input type="file" name="" id="" class="input-img" accept="image/*">
-                    <img src="icons/Photo.svg" alt="" class="upload-img tool-img"
+                    <img src="icons/Photo.svg" alt="Upload Image" title="Upload Image" class="upload-img tool-img"
                         onclick="handleToolChange('upload')">
                 </div>
                 <div class="tool">
-                    <img src="./icons/Download.svg" alt="" class="tool-img download-tool">
+                    <img src="./icons/Download.svg" alt="Download" title="Download as PNG" class="tool-img download-tool">
                 </div>
                 <div class="tool">
-                    <img src="./icons/Undo.svg" alt="" class="tool-img undo">
+                    <img src="./icons/Undo.svg" alt="Undo" title="Undo" class="tool-img undo">
                 </div>
                 <div class="tool">
-                    <img src="./icons/Redo.svg" alt="" class="tool-img redo">
+                    <img src="./icons/Redo.svg" alt="Redo" title="Redo" class="tool-img redo">
                 </div>
             </div>
         </div>

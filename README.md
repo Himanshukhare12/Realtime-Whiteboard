@@ -10,10 +10,30 @@ Realtime-Whiteboard is a collaborative online whiteboard application that allows
 - **Undo/Redo**: Undo and redo actions.
 - **Download**: Download the current state of the whiteboard.
 - **Real-time Collaboration**: Multiple users can collaborate in real-time.
+ - **Light/Dark Theme**: Toggle between light and dark modes; preference is saved.
 
-## Deployment
-The application is deployed on Render. You can access it using the following link:
-[Realtime-Whiteboard on Render](https://your-render-link.com)
+## UI/UX Improvements
+- Modern, clean toolbar and brand header for clarity.
+- Improved accessibility: descriptive labels, better focus/hover states.
+- Subtle canvas grid background for orientation without distraction.
+- Responsive layout: toolbar and controls adapt to smaller screens.
+
+## Run Locally
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the server:
+
+```bash
+npm start
+```
+
+3. Open `http://localhost:3000` in your browser.
+
+Note: The client currently connects to a hosted Socket.IO server for collaboration. Local-only drawing works without a socket connection.
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
