@@ -2,8 +2,19 @@
 const socket = io.connect("https://realtime-whiteboard-uvcg.onrender.com");
 // *********************************Basic Setup
 const board = document.querySelector(".board");
-board.height = window.innerHeight;
-board.width = window.innerWidth;
+const toolbar = document.querySelector(".toolBar");
+
+function setBoardSize() {
+  const toolbarHeight = toolbar ? toolbar.getBoundingClientRect().height : 0;
+  const height = Math.max(200, window.innerHeight - toolbarHeight);
+  board.height = height;
+  board.width = window.innerWidth;
+  board.style.height = `${height}px`;
+  board.style.width = "100%";
+}
+
+setBoardSize();
+window.addEventListener("resize", setBoardSize);
 // canvasRenderingContext2d=> tool
 const ctx = board.getContext("2d");
 ctx.strokeStyle = "blue";

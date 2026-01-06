@@ -10,6 +10,7 @@
   background-color: #ff4757;
   position: absolute;
   top: 9px;
+  cursor: pointer;
 }
 .writing-pad {
   position: absolute;
@@ -28,6 +29,7 @@
   background-color: #2ed573;
   position: absolute;
   top: 9px;
+  cursor: pointer;
 }
 .sticky-pad {
   z-index: 40;

@@ -15,13 +15,21 @@ function createBox(){
   stickyPad.appendChild(navBar);
   stickyPad.appendChild(writingPad);
   body.appendChild(stickyPad);
-  // create sticky
-  close.addEventListener("click", function() {
+  // create sticky controls
+  const attachControl = (el, handler) => {
+    el.addEventListener("click", handler);
+    el.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      handler();
+    }, { passive: false });
+  };
+
+  attachControl(close, function() {
     stickyPad.remove();
   });
 
   let isMinimized = false;
-  minimize.addEventListener("click", function() {
+  attachControl(minimize, function() {
     isMinimized == false
       ? (writingPad.style.display = "none")
       : (writingPad.style.display = "block");
@@ -63,6 +71,39 @@ function createBox(){
   navBar.addEventListener("mouseleave", function() {
     isStickyDown = false;
   });
+
+  // touch drag for sticky
+  navBar.addEventListener("touchstart", function(e) {
+    const t = e.touches[0];
+    if (!t) return;
+    e.preventDefault();
+    initialX = t.clientX;
+    initialY = t.clientY;
+    isStickyDown = true;
+  }, { passive: false });
+
+  navBar.addEventListener("touchmove", function(e) {
+    const t = e.touches[0];
+    if (!t || !isStickyDown) return;
+    e.preventDefault();
+    let finalX = t.clientX;
+    let finalY = t.clientY;
+    let diffX = finalX - initialX;
+    let diffY = finalY - initialY;
+    let { top, left } = stickyPad.getBoundingClientRect();
+    stickyPad.style.top = top + diffY + "px";
+    stickyPad.style.left = left + diffX + "px";
+    initialX = finalX;
+    initialY = finalY;
+  }, { passive: false });
+
+  navBar.addEventListener("touchend", function() {
+    isStickyDown = false;
+  });
+
+  navBar.addEventListener("touchcancel", function() {
+    isStickyDown = false;
+  });
   document.body.appendChild(stickyPad);
   return writingPad;
 
@@ -98,8 +139,8 @@ const ImageInput = document.querySelector(".upload-img");
 function handleToolChange(tool) {
   if (tool == "pencil") {
     if (Activetool == "pencil") {
-      // show options
-      pencilOptions.classList.add("show");
+      // toggle options when clicking the active tool
+      pencilOptions.classList.toggle("show");
     } else {
       Activetool = "pencil";
       eraserOptions.classList.remove("show");
@@ -108,11 +149,12 @@ function handleToolChange(tool) {
       ctx.strokeStyle = "blue";
       ctx.lineWidth = inputs[0].value;
       ctx.globalCompositeOperation = "source-over";
+      pencilOptions.classList.add("show");
     }
   } else if (tool == "eraser") {
     if (Activetool == "eraser") {
-      // show options
-      eraserOptions.classList.add("show");
+      // toggle options when clicking the active tool
+      eraserOptions.classList.toggle("show");
     } else {
       Activetool = "eraser";
       // console.log(tool[1].classList);
@@ -121,6 +163,8 @@ function handleToolChange(tool) {
       pencilOptions.classList.remove("show");
       ctx.globalCompositeOperation = "destination-out";
       ctx.lineWidth = inputs[0].value;
+
+      eraserOptions.classList.add("show");
 
       // remove other options
       // set yourself active

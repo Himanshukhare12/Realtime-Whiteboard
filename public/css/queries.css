@@ -31,13 +31,39 @@
   .tool-panel{
     position: static;
     transform: none;
-    width: 92%;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    padding: 0.5rem 0.25rem;
+    width: 95%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-items: center;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 0.5rem;
+    height: auto;
   }
   .hamburger{
     transform: scale(0.8);
+  }
+
+  .tool-options{
+    top: 3.6rem;
+    left: -1rem;
+    width: 9.5rem;
+  }
+  .tool-options.eraser{
+    top: 3.2rem;
+    left: -1rem;
+  }
+
+  .tool-img{
+    margin-right: 0;
+    height: 2.35rem;
+    width: 2.35rem;
+  }
+
+  .tool{
+    width: 64px;
+    display: flex;
+    justify-content: center;
   }
 }
     animation-timing-function: ease-out; 

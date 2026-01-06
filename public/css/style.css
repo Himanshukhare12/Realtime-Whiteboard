@@ -21,6 +21,12 @@ body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
 }
 
+.combined {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .theme-dark {
   --bg: #0f141a;
   --panel: #121a23;
@@ -107,6 +113,7 @@ body {
   box-shadow: var(--shadow);
   background: var(--panel);
   border: 1px solid var(--border);
+  z-index: 20;
 }
 .tool-options.eraser{
   left: -3rem;
@@ -219,10 +226,14 @@ input[type=range]::-webkit-slider-thumb {
 
 /* Board styling */
 .board {
+  flex: 1;
+  width: 100%;
+  display: block;
   background-color: var(--panel);
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
   background-size: 24px 24px, 24px 24px;
   background-position: -1px -1px, -1px -1px;
+  touch-action: none;
 }

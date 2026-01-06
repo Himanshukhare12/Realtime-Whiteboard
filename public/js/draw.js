@@ -1,47 +1,76 @@
-let isMouseDown = false;
+let isDrawing = false;
 
-board.addEventListener("mousedown", function(e) {
+function beginStroke(clientX, clientY) {
+  const top = getLocation();
   ctx.beginPath();
-  let top = getLocation();
-  ctx.moveTo(e.clientX, e.clientY - top);
-  isMouseDown = true;
+  ctx.moveTo(clientX, clientY - top);
+  isDrawing = true;
 
-  let point = {
-    x: e.clientX,
-    y: e.clientY - top,
+  const point = {
+    x: clientX,
+    y: clientY - top,
     identifier: "mousedown",
     color: ctx.strokeStyle,
     width: ctx.lineWidth
   };
-
   undoStack.push(point);
-
   socket.emit("mousedown", point);
-  // event emit
+}
+
+function continueStroke(clientX, clientY) {
+  if (!isDrawing) return;
+  const top = getLocation();
+  ctx.lineTo(clientX, clientY - top);
+  ctx.stroke();
+  const point = {
+    x: clientX,
+    y: clientY - top,
+    identifier: "mousemove",
+    color: ctx.strokeStyle,
+    width: ctx.lineWidth
+  };
+  undoStack.push(point);
+  socket.emit("mousemove", point);
+}
+
+function endStroke() {
+  isDrawing = false;
+}
+
+// Mouse support
+board.addEventListener("mousedown", function(e) {
+  beginStroke(e.clientX, e.clientY);
 });
-// mmousedown x,y beginPath,moveTo(x,y),color,size
-// mouseMove=> x1,y1, lineTo,stroke
+
 board.addEventListener("mousemove", function(e) {
-  if (isMouseDown == true) {
-    // console.log(ctx);
-    let top = getLocation();
-
-    ctx.lineTo(e.clientX, e.clientY - top);
-    ctx.stroke();
-    let point = {
-      x: e.clientX,
-      y: e.clientY - top,
-      identifier: "mousemove",
-      color: ctx.strokeStyle,
-      width: ctx.lineWidth
-    };
-    undoStack.push(point);
-    socket.emit("mousemove", point);
-  }
+  continueStroke(e.clientX, e.clientY);
 });
 
-board.addEventListener("mouseup", function(e) {
-  isMouseDown = false;
+board.addEventListener("mouseup", function() {
+  endStroke();
+});
+
+// Touch support
+board.addEventListener("touchstart", function(e) {
+  const touch = e.touches[0];
+  if (!touch) return;
+  e.preventDefault();
+  beginStroke(touch.clientX, touch.clientY);
+}, { passive: false });
+
+board.addEventListener("touchmove", function(e) {
+  const touch = e.touches[0];
+  if (!touch) return;
+  e.preventDefault();
+  continueStroke(touch.clientX, touch.clientY);
+}, { passive: false });
+
+board.addEventListener("touchend", function() {
+  endStroke();
+});
+
+board.addEventListener("touchcancel", function() {
+  endStroke();
 });
 
 const undo = document.querySelector(".undo");
@@ -64,6 +93,29 @@ redo.addEventListener("mousedown", function() {
   }, 50);
 });
 redo.addEventListener("mouseup", function() {
+  clearInterval(interval);
+});
+
+// Touch support for undo/redo buttons
+undo.addEventListener("touchstart", function(e) {
+  e.preventDefault();
+  interval = setInterval(function() {
+    if (undoMaker()) socket.emit("undo");
+  }, 80);
+}, { passive: false });
+
+undo.addEventListener("touchend", function() {
+  clearInterval(interval);
+});
+
+redo.addEventListener("touchstart", function(e) {
+  e.preventDefault();
+  interval = setInterval(function() {
+    if (redoMaker()) socket.emit("redo");
+  }, 80);
+}, { passive: false });
+
+redo.addEventListener("touchend", function() {
   clearInterval(interval);
 });
 
